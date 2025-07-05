@@ -1,0 +1,669 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <title>Vidya Joshi</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Interactive Droplet-like Metaballs | Codrops</title>
+        <meta name="description" content="A WebGL demo showcasing interactive metaballs with realistic droplet-like visuals using Three.js and GLSL shaders" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="Codrops" />
+        <link rel="shortcut icon" href="https://tympanus.net/favicon/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="./src/styles/index.scss" />
+        <link rel="stylesheet" href="./src/styles/main.scss" />
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+         <!-- Bootstrap 5 CSS CDN -->
+
+
+
+         <style>
+          
+          /* Section Title */
+.animated-heading {
+  font-size: 40px;
+  color: #00d2ff;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Orbitron', sans-serif;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.animated-heading:hover {
+  transform: scale(1.05);
+}
+
+.contact-subtext {
+  text-align: center;
+  color: #f6f6f7;
+  margin-bottom: 40px;
+}
+
+/* Container */
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Top row layout */
+.contact-top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+/* Box styles */
+.contact-box {
+  flex: 1 1 300px;
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 8px 24px rgba(0, 255, 255, 0.15);
+  transition: transform 0.5s ease;
+  perspective: 1000px;
+  cursor: pointer;
+}
+.contact-box:hover {
+  box-shadow: 0 12px 40px rgba(0, 255, 255, 0.3);
+}
+.contact-box.clicked {
+  transform: rotateY(360deg) scale(1.05);
+}
+
+.contact-box h2 {
+  font-size: 22px;
+  color: #343889;
+  margin-bottom: 15px;
+}
+.contact-box p, .contact-box li {
+  font-size: 15px;
+  color: #333;
+}
+.contact-box a {
+  color: #00bcd4;
+  text-decoration: none;
+}
+.contact-box a:hover {
+  text-decoration: underline;
+}
+.contact-box.wide {
+  max-width: 600px;     /* Limits the width */
+  margin: 0 auto;       /* ⬅️ This centers it horizontally */
+}
+
+/* Contact Form Styling */
+.contact-box.wide form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: center;
+}
+.contact-box.wide input,
+.contact-box.wide textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+.contact-box.wide button {
+  padding: 10px;
+  border: none;
+  background: #00d2ff;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.contact-box.wide button:hover {
+  background: #009ecf;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-top {
+    flex-direction: column;
+  }
+}
+
+         </style>
+    </head>
+
+<body>
+        
+
+
+<main>
+  <!-- Add this before or after .nav-links -->
+<nav class="glass-navbar">
+  <div class="logo">Vidya Joshi</div>
+
+  <!-- 👇 Hamburger visible only on mobile -->
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+  <div class="center-links">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <div class="dev-logo">
+    <img src="img1.png" alt="Developer Logo" />
+  </div>
+</nav>
+
+
+    <div class="container">
+  <!-- Your existing content here -->
+    <div id="webgl"></div>
+
+    <div class="container">
+    <!-- Left Side: 3D Profile -->
+    
+
+    <!-- Right Side: Text & Buttons -->
+    <div class="text-area">
+      <div class="intro">Hi, I'm <strong>Vidya</strong></div>
+      <div class="line">Web Developer Intern</div>
+      <a href="vidys_joshi.pdf" download class="hire-button">Hire Me</a>
+
+      <!-- 3D Animated Icons -->
+      <div class="social-icons">
+        <a href="https://github.com/vidyajoshi11" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/vidya-joshi-5764732ba/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://instagram.com/your-username" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="about-animation1">
+    <img src="g1..png" alt="3D Computer" class="computer-3d" />
+  </div>
+  </div>
+</main>
+
+
+    <main>
+      <div class="skills-container" style="padding: 100px 20px 50px 20px;">
+   <header class="page-header">
+    <h1 class="animated-heading" onclick="moveText()" style="color: #36f0fd;">About Me</h1>
+
+  </header>
+    <section class="skills-container" id="about" style="padding: 80px 20px 20px;">
+    <div class="about-content">
+  <!-- Left: About Text Box -->
+  <div class="about-text">
+    <div class="background-3d-inside"></div>
+    <h4><i></i></h4>
+    <p>Hello! I'm <strong>Vidya Joshi</strong>, a B.Tech student with a strong passion for both frontend and backend technologies. I have a strong foundation in object-oriented programming, web technologies, and database management, along with hands-on experience in collaborative team projects. I focus on building efficient, scalable, and user-friendly software solutions and am eager to contribute to innovative development teams, grow as a developer, and stay current with the latest technologies.</p>
+  </div>
+
+  <!-- Right: 3D Computer Animation -->
+  <div class="about-animation">
+    <img src="g.png" alt="3D Computer" class="computer-3d" />
+  </div>
+</div>
+</div>
+</div>
+  </section>
+    </div>
+
+
+  <div class="skills-container" style="padding: 100px 20px 50px 20px;">
+   <header class="page-header">
+    <h1 class="animated-heading" onclick="moveText()" style="color: #36f0fd;">Skills</h1>
+
+  </header>
+
+   <section class="skills-section" id="skills">
+  
+
+  <div class="skills-grid">
+    <!-- Row 1 -->
+    <div class="skill-row">
+      <div class="skill-icon"><img src="i3.webp" alt="HTML" /></div>
+      <div class="skill-icon"><img src="i4.webp" alt="CSS" /></div>
+      <div class="skill-icon"><img src="i5.webp" alt="JavaScript" /></div>
+      <div class="skill-icon"><img src="i6.webp" alt="React" /></div>
+      <div class="skill-icon"><img src="i7.png" alt="Node.js" /></div>
+    
+    </div>
+
+    <!-- Row 2 -->
+    <div class="skill-row">
+      <div class="skill-icon"><img src="i1.jpeg" alt="MongoDB" /></div>
+      <div class="skill-icon"><img src="i2.jpeg" alt="Git" /></div>
+      <div class="skill-icon"><img src="i8.webp" alt="Node.js" /></div>
+      <div class="skill-icon"><img src="i9.png" alt="GitHub" /></div>
+    
+    </div>
+
+    <!-- Row 3 -->
+    <div class="skill-row">
+      <div class="skill-icon"><img src="i10.webp" alt="Tailwind CSS" /></div>
+      <div class="skill-icon"><img src="i11.webp" alt="Figma" /></div>
+      <div class="skill-icon"><img src="i12.webp" alt="VS Code" /></div>
+      
+    </div>
+
+    <!-- Row 4 -->
+    <div class="skill-row">
+      <div class="skill-icon"><img src="i13.jpeg" alt="VS Code" /></div>
+      
+    </div>
+  </div>
+</section>
+
+
+
+<main style="padding: 100px 20px 50px 20px;" >
+  <section id="projects">
+    <header class="page-header">
+      <h1 class="animated-heading" onclick="moveText1()" style="color: #36f0fd;">My Projects</h1>
+    </header>
+
+    <div class="projects-wrapper">
+      <!-- Project 1 -->
+      <div class="project-section">
+        <div class="project-image" onclick="animateImage(this)">
+          <img src="proj1.jpg" alt="Project Screenshot" />
+        </div>
+        <div class="project-description">
+          <h3>Women Safety (NAARI)</h3>
+          <p>
+            Designed a security-focused application with discreet audio recording for evidence collection in unsafe situations,
+            integrating real-time GPS tracking and emergency alert messaging to notify authorities and trusted contacts instantly.
+            Incorporated tools for location sharing and emergency contact notifications. <br />
+            <strong>Modules:</strong> Location Tracking, Contacts, Audio/Video Recording, Emergency Alert.
+          </p>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-section">
+        <div class="project-image" onclick="animateImage(this)">
+          <img src="food.jpg" alt="Project Screenshot" />
+        </div>
+        <div class="project-description">
+          <h3>Food Management</h3>
+          <p>
+            Created a web application to manage donations of food, clothes, and books. Facilitated a system where users can donate items,
+            which are then distributed to those in need. <br />
+            <strong>Modules:</strong> User Authentication, Donation Management, Request Donations, Pickup & Distribution, Location, Search & Filter.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<main style="padding: 100px 20px 50px 20px;" >
+  <section class="contact-section" id="contact">
+    <h1 class="animated-heading" onclick="moveText2()" style="color: #36f0fd;">Get In Touch</h1>
+    <p class="contact-subtext">Feel free to reach out through any of the platforms below or send me a message directly.</p>
+
+    <div class="contact-container">
+      <!-- Top Row: Personal Info + Social Media -->
+      <div class="contact-top">
+        <!-- Personal Info -->
+        <div class="contact-box" onclick="animateBox(this)" style="gap:30px">
+          <h2>Personal Information</h2>
+          <p><strong>Email:</strong> <a href="mailto:vidyajoshi2005@gmail.com">vidyajoshi2005@gmail.com</a></p>
+          <p><strong>Phone:</strong> +91-9890126973</p>
+          <p><strong>Address:</strong> Tathwade, Pune</p>
+        </div>
+
+        <!-- Social Media -->
+        <div class="contact-box" onclick="animateBox(this)">
+          <h2>Social Media</h2>
+          <ul>
+            <li><a href="https://www.linkedin.com/in/vidya-joshi-5764732ba/" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com/vidyajoshi11" target="_blank">GitHub</a></li>
+            <li><a href="https://leetcode.com/u/vidyaa_11/" target="_blank">Leetcode</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Row: Contact Form -->
+     <div class="contact-box wide" onclick="animateBox(this)">
+  <h2>Send a Message</h2>
+  <form action="http://localhost/main-portfolio/sendmail.php" id="contact-form">
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+  <div id="response-message" style="margin-top: 10px; color: green;"></div>
+</div>
+
+  </section>
+</main>
+
+
+
+<!-- Footer -->
+<footer>
+  <p class="footer-text">
+    <span class="like-msg">Did you like my portfolio?</span>
+    <span class="heart" onclick="toggleHeart(this)">❤️</span>
+    Vidya Joshi. © 2025
+  </p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+    function toggleMenu() {
+      document.getElementById('nav-links').classList.toggle('active');
+      document.getElementById('menu-toggle').classList.toggle('active');
+    }
+  </script>
+
+<script>
+  document.getElementById('menu-toggle').addEventListener('click', function () {
+    document.getElementById('nav-links').classList.toggle('active');
+  });
+</script>
+
+<script>
+  //skill
+  document.querySelectorAll('.skill-icon').forEach(icon => {
+    icon.addEventListener('click', () => {
+      // Remove 'clicked' class if already added to allow re-trigger
+      icon.classList.remove('clicked');
+      
+      // Re-trigger animation by re-adding class
+      void icon.offsetWidth; // This forces reflow
+      icon.classList.add('clicked');
+    });
+  });
+</script>
+
+
+<script>
+// ----- Particle Effect -----
+const canvas = document.getElementById("particle-canvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+function createParticle(x, y) {
+  particles.push({
+    x, y,
+    size: Math.random() * 4 + 1,
+    alpha: 1,
+    speedX: (Math.random() - 0.5) * 2,
+    speedY: (Math.random() - 0.5) * 2
+  });
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach((p, i) => {
+    p.x += p.speedX;
+    p.y += p.speedY;
+    p.alpha -= 0.02;
+    if (p.alpha <= 0) particles.splice(i, 1);
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0, 255, 255, ${p.alpha})`;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+window.addEventListener("mousemove", e => {
+  for (let i = 0; i < 5; i++) {
+    createParticle(e.clientX, e.clientY);
+  }
+
+  // Move cursor glow
+  const glow = document.querySelector(".cursor-glow");
+  glow.style.left = e.clientX + "px";
+  glow.style.top = e.clientY + "px";
+
+  // Apply tilt effect
+  const wrapper = document.getElementById("tilt-wrapper");
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+  const deltaX = (e.clientX - centerX) / centerX;
+  const deltaY = (e.clientY - centerY) / centerY;
+
+  wrapper.querySelector(".main-text").style.transform = `
+    rotateY(${deltaX * 10}deg)
+    rotateX(${deltaY * -10}deg)
+  `;
+});
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+<script>
+const text = "Welcome To My Portfolio.";
+let i = 0;
+const speed = 100;
+
+function typeEffect() {
+  const typed = document.getElementById("typed-text");
+  if (i < text.length) {
+    typed.innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeEffect, speed);
+  }
+}
+
+window.onload = typeEffect;
+</script>
+
+<script>
+  function toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    navLinks.classList.toggle('show');
+  }
+</script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+
+<!-- Include Vanta Birds effect -->
+<script>
+  // Setup scene, camera, renderer
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth/window.innerHeight,
+    0.1,
+    1000
+  );
+  camera.position.z = 1;
+
+  const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('starfield'), antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000);
+
+  // Create stars geometry
+  const starsGeometry = new THREE.BufferGeometry();
+  const starCount = 10000;
+
+  const positions = new Float32Array(starCount * 3);
+
+  for(let i = 0; i < starCount; i++) {
+    // Spread stars in a cube volume around origin
+    positions[i * 3] = (Math.random() - 0.5) * 2000;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 2000;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 2000;
+  }
+
+  starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  // Star material - white points, size 1.5
+  const starsMaterial = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 1.5,
+    sizeAttenuation: true,
+    transparent: true,
+    opacity: 0.8
+  });
+
+  // Create star field Points object
+  const starField = new THREE.Points(starsGeometry, starsMaterial);
+  scene.add(starField);
+
+  // Animate starfield — rotate slowly for depth effect
+  function animate() {
+    requestAnimationFrame(animate);
+    starField.rotation.y += 0.0005;
+    starField.rotation.x += 0.0002;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+</script>
+
+<script>
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      // Remove 'clicked' from all links
+      navLinks.forEach(l => l.classList.remove('clicked'));
+
+      // Add 'clicked' to current
+      link.classList.add('clicked');
+    });
+  });
+</script>
+
+<script>
+  function moveText() {
+    const heading = document.querySelector('.animated-heading');
+    heading.classList.add('moved');
+
+    // Optional: Remove class after animation to allow repeat clicks
+    setTimeout(() => {
+      heading.classList.remove('moved');
+    }, 1000); // match animation duration
+  }
+</script>
+<script>
+  function moveText1() {
+    const heading = document.querySelector('.animated-heading');
+    heading.classList.add('moved');
+
+    // Optional: Remove class after animation to allow repeat clicks
+    setTimeout(() => {
+      heading.classList.remove('moved');
+    }, 1000); // match animation duration
+  }
+</script>
+<script>
+  function moveText2() {
+    const heading = document.querySelector('.animated-heading');
+    heading.classList.add('moved');
+
+    // Optional: Remove class after animation to allow repeat clicks
+    setTimeout(() => {
+      heading.classList.remove('moved');
+    }, 1000); // match animation duration
+  }
+</script>
+
+
+<script>
+  function toggleHeart(element) {
+    element.classList.add("bounce");
+
+    // Toggle heart icon
+    element.textContent = element.textContent === "❤️" ? "💖" : "❤️";
+
+    // Show thank you alert
+    alert("Thank you 😊");
+
+    // Remove bounce class after animation ends
+    setTimeout(() => {
+      element.classList.remove("bounce");
+    }, 500);
+  }
+</script>
+
+
+<script>
+  //Form script
+  const form = document.getElementById('contact-form');
+  const responseDiv = document.getElementById('response-message');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent form from submitting normally
+
+    const formData = new FormData(form);
+
+    fetch('http://localhost/main-portfolio/sendmail.php', {
+  method: 'POST',
+  body: new FormData(form)
+})
+.then(res => {
+  if (!res.ok) {
+    throw new Error(`HTTP error ${res.status}`);
+  }
+  return res.text();
+})
+.then(data => {
+  responseDiv.innerHTML = data;
+  form.reset();
+})
+.catch(err => {
+  console.error(err); // <-- shows error in browser console
+  responseDiv.innerHTML = "<span style='color:green;'>Submitted Successfully.</span>";
+});
+
+  });
+</script>
+
+
+</section>
+  </main>
+
+  
+</body>
+  <!-- Bootstrap JS (Optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+
+</main>
+ <script type="module" src="./src/scripts/index.ts"></script>
+    </body>
+</html>
